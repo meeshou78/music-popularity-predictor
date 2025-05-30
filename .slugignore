@@ -1,5 +1,8 @@
 *.ipynb
-*.csv
-*.json
 __pycache__/
 .ipynb_checkpoints/
+*.csv
+*.json
+*.npy
+*.zip
+*.h5
