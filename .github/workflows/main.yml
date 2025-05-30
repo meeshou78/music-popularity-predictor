@@ -7,7 +7,6 @@ on:
 
 jobs:
   deploy:
-    name: Deploy to Heroku
     runs-on: ubuntu-latest
 
     steps:
@@ -29,5 +28,9 @@ jobs:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
           HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
         run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          echo "machine git.heroku.com login $HEROKU_API_KEY password" > ~/.netrc
           heroku git:remote -a $HEROKU_APP_NAME
-          git push heroku main --force
+          git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git main --force
+
