@@ -10,9 +10,9 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
 # Define URLs for downloading assets
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1A7FqRRi8Rm9l88Q5n0u4GamKSugBBwCK"
-SCALER_URL = "https://drive.google.com/uc?export=download&id=1qF-HEOZpHY5zTnoWCG4At90w3Or1mZp0"
-FEATURES_URL = "https://drive.google.com/uc?export=download&id=1aFVQpDU89pDUGw_o0mkN7J0W8FbDyd6C"
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1S9eNqqvmDluWVZtPs3-T3Veio2Ag_oA"
+SCALER_URL = "https://drive.google.com/uc?export=download&id=1OzBrZlbfSYJyw1UA4Uj7w62VqCqcxrKJ"
+FEATURES_URL = "https://drive.google.com/uc?export=download&id=1hDKDHP-6JykiZiYFnxzR-ohLDuxINk5h"
 
 def download_file(url, filename):
     if not os.path.exists(filename):
