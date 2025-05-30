@@ -1,4 +1,4 @@
-name: CI/CD Pipeline
+name: Deploy to Heroku
 
 on:
   push:
@@ -7,31 +7,27 @@ on:
 
 jobs:
   deploy:
+    name: Deploy to Heroku
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.10'
-
-      - name: Install dependencies
+      - name: Install Heroku CLI
         run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          curl https://cli-assets.heroku.com/install.sh | sh
+
+      - name: Login to Heroku Container Registry
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: |
+          echo "$HEROKU_API_KEY" | docker login --username=_ --password-stdin registry.heroku.com
 
       - name: Deploy to Heroku
-        uses: akhileshns/heroku-deploy@v3.12.12
-        with:
-          heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
-          heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
-          heroku_email: cormiermiranda@gmail.com
-          branch: main
-          usedocker: false
-          appdir: "."
-          buildpack: "heroku/python"
         env:
-          CI: false
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+          HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
+        run: |
+          heroku git:remote -a $HEROKU_APP_NAME
+          git push heroku main --force
