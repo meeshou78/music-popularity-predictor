@@ -9,6 +9,23 @@ import urllib.request
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
+# Define URLs for downloading assets
+MODEL_URL = "https://drive.google.com/uc?export=download&id=1A7FqRRi8Rm9l88Q5n0u4GamKSugBBwCK"
+SCALER_URL = "https://drive.google.com/uc?export=download&id=1s6iDX0l2C4MJP1Tapkru820dmvCNop5q"
+FEATURES_URL = "https://drive.google.com/uc?export=download&id=1aFVQpDU89pDUGw_o0mkN7J0W8FbDyd6C"
+
+def download_file(url, filename):
+    if not os.path.exists(filename):
+        logging.info(f"Downloading {filename}...")
+        urllib.request.urlretrieve(url, filename)
+        logging.info(f"{filename} downloaded.")
+
+# Ensure required files are available
+download_file(MODEL_URL, "model_xgb.pkl")
+download_file(SCALER_URL, "scaler.pkl")
+download_file(FEATURES_URL, "features.pkl")
+
+# Load models and features
 model = joblib.load("model_xgb.pkl")  
 scaler = joblib.load("scaler.pkl")
 FEATURES = joblib.load("features.pkl")
@@ -70,4 +87,4 @@ def index():
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))
-    app.run(host='0.0.0.0', port=5000, debug=True)
+    app.run(host='0.0.0.0', port=port, debug=True)
