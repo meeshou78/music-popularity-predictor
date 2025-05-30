@@ -11,8 +11,8 @@ logging.basicConfig(level=logging.INFO)
 
 # Define URLs for downloading assets
 MODEL_URL = "https://drive.google.com/uc?export=download&id=1S9eNqqvmDluWVZtPs3-T3Veio2Ag_oA"
-SCALER_URL = "https://drive.google.com/uc?export=download&id=1OzBrZlbfSYJyw1UA4Uj7w62VqCqcxrKJ"
-FEATURES_URL = "https://drive.google.com/uc?export=download&id=1hDKDHP-6JykiZiYFnxzR-ohLDuxINk5h"
+SCALER_URL = "https://drive.google.com/uc?export=download&id=1Ijq4hI4hCKW0_uv_8HkgFiqucnie4BkD"
+FEATURES_URL = "https://drive.google.com/uc?export=download&id=1Q4jCVxw6claA8XjvonADuPwkqcG_YcJE"
 
 def download_file(url, filename):
     if not os.path.exists(filename):
