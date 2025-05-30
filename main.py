@@ -4,26 +4,27 @@ import numpy as np
 import joblib
 import logging
 import os
-import urllib.request
+import gdown
 
 app = Flask(__name__)
 logging.basicConfig(level=logging.INFO)
 
-# Define URLs for downloading assets
-MODEL_URL = "https://drive.google.com/uc?export=download&id=1S9eNqqvmDluWVZtPs3-T3Veio2Ag_oA"
-SCALER_URL = "https://drive.google.com/uc?export=download&id=1Ijq4hI4hCKW0_uv_8HkgFiqucnie4BkD"
-FEATURES_URL = "https://drive.google.com/uc?export=download&id=1Q4jCVxw6claA8XjvonADuPwkqcG_YcJE"
+# Google Drive file IDs
+MODEL_ID = "1S9eNqqvmDluWVZtPs3-T3Veio2Ag_oA"
+SCALER_ID = "1Ijq4hI4hCKW0_uv_8HkgFiqucnie4BkD"
+FEATURES_ID = "1Q4jCVxw6claA8XjvonADuPwkqcG_YcJE"
 
-def download_file(url, filename):
+def download_file(file_id, filename):
     if not os.path.exists(filename):
-        logging.info(f"Downloading {filename}...")
-        urllib.request.urlretrieve(url, filename)
+        url = f"https://drive.google.com/uc?id={file_id}"
+        logging.info(f"Downloading {filename} from {url}...")
+        gdown.download(url, filename, quiet=False)
         logging.info(f"{filename} downloaded.")
 
 # Ensure required files are available
-download_file(MODEL_URL, "model_xgb.pkl")
-download_file(SCALER_URL, "scaler.pkl")
-download_file(FEATURES_URL, "features.pkl")
+download_file(MODEL_ID, "model_xgb.pkl")
+download_file(SCALER_ID, "scaler.pkl")
+download_file(FEATURES_ID, "features.pkl")
 
 # Load models and features
 model = joblib.load("model_xgb.pkl")  
