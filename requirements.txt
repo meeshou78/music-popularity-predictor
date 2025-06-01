@@ -2,6 +2,6 @@ gdown
 flask
 gunicorn
 pandas
-scikit-learn==1.6.1
-joblib==1.3.2
+scikit-learn
+joblib
 xgboost==1.7.6
